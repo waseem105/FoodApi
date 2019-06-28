@@ -1,3 +1,5 @@
+
+
 import axios from 'axios';
 import { key, proxy} from '../config';
 
@@ -32,6 +34,27 @@ export default class Recipe {
 
     calcServings() {
         this.servings = 4;
+    }
+
+    parseIngredients() {
+        const unitsLong = ['tablespoons', 'tablespoon', 'ounces', 'ounce', 'teaspoon', 'teaspoons'];
+        const unitsShort = ['tbsp', 'tbsp', 'oz', 'oz', 'tsp', 'tsp', 'cup', 'pound'];
+
+        const newIngredients = this.ingredients.map(el => {
+            //1) Uniform Units
+            let ingredient = el.toLowerCase();
+            unitsLong.forEach((unit, i) => {
+                ingredient = ingredients.replace(unit, unitsShort[i]);
+            });
+
+
+            //2) Remove parentheses //regular expression
+            ingredient = ingredient.replace(/ *\([^)]*\) */g, "");
+
+
+            //3 Parse Ingredients into count, unit and ingredients
+        });
+        this.ingredients = newIngredients;
     }
 
 }
